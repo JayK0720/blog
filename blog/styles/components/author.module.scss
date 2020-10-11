@@ -1,0 +1,20 @@
+.author_wrapper{
+    padding:12px 5px;
+    text-align:center;
+    background-color:#fff;
+    .introduction{
+        padding:15px 0;
+        color:#313131;
+    }
+    .account{
+        font-size:24px;
+        .account_icon{
+            margin:0 10px;
+            color:#999999;
+            cursor:pointer;
+        }
+        .account_icon:hover{
+            color:#1e90ff;
+        }
+    }
+}
