@@ -1,0 +1,27 @@
+.footer_wrapper{
+    padding-top:20px;
+    background-color:#F6f9fa;
+    height:130px;
+    text-align:center;
+}
+.skill,.realm{
+    color:#999;
+}
+.copyright{
+    .hz_icon{
+        margin-right:5px;
+        display:inline-block;
+        width: 20px;
+        height: 20px;
+        background-image: url("/hz_icon.png");
+        background-position: -40px 0;
+        vertical-align:bottom;
+    }
+    .link{
+        color:#999999;
+        font-size:12px;
+    }
+    .link:hover{
+        color:#1e90ff;
+    }
+}

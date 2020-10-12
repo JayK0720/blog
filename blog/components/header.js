@@ -2,14 +2,12 @@ import React from 'react';
 import styles from '../styles/components/header.module.scss';
 import {Row,Col,Menu} from 'antd'
 import {HomeOutlined,SmileOutlined,VideoCameraOutlined} from '@ant-design/icons';
-import Head from 'next/head';
 
 function Header(){
 	return (
 		<React.Fragment>
-			<Head><title>首页</title></Head>
 			<Row justify='center' className={styles.header}>
-				<Col xs={24} sm={24} md={12} lg={10} xl={10} className={styles.header_left}>
+				<Col xs={24} sm={24} md={12} lg={10} xl={12} className={styles.header_left}>
 					<span className={styles.user}>牧童</span>
 					<span className={styles.header_text}>keep learning and coding!</span>
 				</Col>

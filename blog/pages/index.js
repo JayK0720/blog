@@ -4,13 +4,15 @@ import Layout from '../components/layout';
 import {List} from 'antd';
 import {CalendarOutlined,FileOutlined,FireOutlined} from '@ant-design/icons';
 import Author from '../components/author';
+import Calendar from '../components/calendar';
+import Head from 'next/head';
+import Footer from '../components/footer'
 
 function ContentList({list}){
 	return (
 		<List
 			className={'content-wrapper'}
 			header={<div>最新日志</div>}
-			bordered
 			dataSource={list}
 			itemLayout={'vertical'}
 			renderItem={item => (
@@ -29,6 +31,15 @@ function ContentList({list}){
 	)
 }
 
+function RightContent(){
+	return (
+		<React.Fragment>
+			<Calendar/>
+			<Author/>
+		</React.Fragment>
+	)
+}
+
 
 export default function Home() {
 	const [list,setList] = useState(
@@ -41,11 +52,15 @@ export default function Home() {
 	);
 	return (
 		<div className={'real-app'}>
+			<Head>
+				<title>首页 - 我的精神家园</title>
+			</Head>
 			<Header/>
 			<Layout
 				left={<ContentList list={list}/>}
-				right={<Author/>}
+				right={<RightContent/>}
 			/>
+			<Footer/>
 		</div>
 	)
 }
