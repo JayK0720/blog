@@ -11,9 +11,11 @@
     "antd": "^4.7.0",
     "axios": "^0.20.0",
     "babel-plugin-import": "^1.13.1",
+    "markdown-navbar": "^1.4.3",
     "next": "9.5.5",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-markdown": "^4.3.1",
     "sass": "^1.27.0"
   }
 }

@@ -8,4 +8,6 @@ body{
     font-weight:normal;
     color:#3c3c3c;
 }
-.ant-picker-calendar-header{display:none;}
+.ant-picker-calendar-header .ant-radio-group{
+    display:none;
+}
