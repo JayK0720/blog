@@ -3,23 +3,18 @@
     background-color:#F6f9fa;
     height:130px;
     text-align:center;
+    .breadcrumb,.link,.copyright{
+        color:#999;
+    }
 }
-.skill,.realm{
+.footer{
     color:#999;
-}
-.copyright{
-    .hz_icon{
-        margin-right:5px;
-        display:inline-block;
-        width: 20px;
-        height: 20px;
-        background-image: url("/hz_icon.png");
-        background-position: -40px 0;
-        vertical-align:bottom;
+    .copyright{
+        padding-right:5px;
     }
     .link{
-        color:#999999;
         font-size:12px;
+        padding-left:8px;
     }
     .link:hover{
         color:#1e90ff;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import Layout from '../components/layout'
 import Header from '../components/header'
 import Footer from '../components/footer'
@@ -7,43 +7,10 @@ import Author from '../components/author';
 import {Breadcrumb,Affix} from 'antd';
 import {FileOutlined,FireOutlined,CalendarOutlined} from '@ant-design/icons';
 import ReactMarkdown from 'react-markdown';
-import MarkdownNav from 'markdown-navbar'
-let input ='# P01:课程介绍和环境搭建\n' +
-	'[ **M** ] arkdown + E [ **ditor** ] = **Mditor**  \n' +
-	'> Mditor 是一个简洁、易于集成、方便扩展、期望舒服的编写 markdown 的编辑器，仅此而已... \n\n' +
-	'**这是加粗的文字**\n\n' +
-	'*这是倾斜的文字*`\n\n' +
-	'***这是斜体加粗的文字***\n\n' +
-	'~~这是加删除线的文字~~ \n\n'+
-	'\`console.log(111)\` \n\n'+
-	'# p02:来个Hello World 初始Vue3.0\n' +
-	'> aaaaaaaaa\n' +
-	'>> bbbbbbbbb\n' +
-	'>>> cccccccccc\n'+
-	'***\n\n\n' +
-	'# p03:Vue3.0基础知识讲解\n' +
-	'> aaaaaaaaa\n' +
-	'>> bbbbbbbbb\n' +
-	'>>> cccccccccc\n\n'+
-	'# p04:Vue3.0基础知识讲解\n' +
-	'> aaaaaaaaa\n' +
-	'>> bbbbbbbbb\n' +
-	'>>> cccccccccc\n\n'+
-	'#5 p05:Vue3.0基础知识讲解\n' +
-	'> aaaaaaaaa\n' +
-	'>> bbbbbbbbb\n' +
-	'>>> cccccccccc\n\n'+
-	'# p06:Vue3.0基础知识讲解\n' +
-	'> aaaaaaaaa\n' +
-	'>> bbbbbbbbb\n' +
-	'>>> cccccccccc\n\n'+
-	'# p07:Vue3.0基础知识讲解\n' +
-	'> aaaaaaaaa\n' +
-	'>> bbbbbbbbb\n' +
-	'>>> cccccccccc\n\n'+
-	'``` var a=11; ```'
+import MarkdownNav from 'markdown-navbar';
+import HighLightCode from '../components/highlight';
 
-function DetailContent(){
+function DetailContent({article}){
 	return (
 		<div className={'detail-wrapper'}>
 			<Breadcrumb className='bread-nav'>
@@ -60,7 +27,11 @@ function DetailContent(){
 				</div>
 				<div className={'article'}>
 					<ReactMarkdown
-						source={input}
+						source={article}
+						escapeHtml={false}
+						renderers={{
+							code:HighLightCode
+						}}
 					/>
 				</div>
 			</div>
@@ -68,40 +39,44 @@ function DetailContent(){
 	)
 }
 
-function ArticleNav(){
-	return (
-		<Affix>
-			<div className={'article-nav'}>
-				<div className="nav-title">文章目录</div>
-				<MarkdownNav
-					className={'article-menu'}
-					source={input}
-					ordered={false}
-				/>
-			</div>
-		</Affix>
-	)
-}
-
-function RightContent(){
+function RightContent({article}){
 	return (
 		<React.Fragment>
-			<Author/><ArticleNav/>
+			<Author/>
+			<Affix offsetTop={60}>
+				<div className={'article-nav'}>
+					<div className="nav-title">文章目录</div>
+					<MarkdownNav
+						className={'article-menu'}
+						source={article}
+						ordered={false}
+					/>
+				</div>
+			</Affix>
 		</React.Fragment>
 	)
 }
 
-
-function Detail() {
+function Detail(props) {
 	return (
 		<div className={'detail-page'}>
 			<Header/>
 			<Layout
-				left={<DetailContent/>}
-				right={<RightContent/>}
+				left={<DetailContent {...props}/>}
+				right={<RightContent {...props}/>}
 			/>
 			<Footer/>
 		</div>
 	)
+}
+
+export async function getStaticProps() {
+	const response = await fetch("http://localhost:5000/file");
+	const data = await response.text();
+	return {
+		props:{
+			article:data
+		}
+	}
 }
 export default Detail;
