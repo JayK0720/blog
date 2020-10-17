@@ -70,12 +70,13 @@ function Detail(props) {
 	)
 }
 
-export async function getStaticProps() {
-	const response = await fetch("http://localhost:5000/file");
-	const data = await response.text();
+export async function getStaticProps(context) {
+	console.log('context:',context);
+	const response = await fetch("http://localhost:3000/api/file");
+	const {article} = await response.json();
 	return {
 		props:{
-			article:data
+			article:article
 		}
 	}
 }

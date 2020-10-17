@@ -7,7 +7,7 @@ function Header(){
 	return (
 		<React.Fragment>
 			<Row justify='center' className={styles.header}>
-				<Col xs={24} sm={24} md={12} lg={10} xl={12} className={styles.header_left}>
+				<Col xs={24} sm={24} md={13} lg={10} xl={13} className={styles.header_left}>
 					<span className={styles.user}>牧童</span>
 					<span className={styles.header_text}>keep learning and coding!</span>
 				</Col>

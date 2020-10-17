@@ -6,13 +6,13 @@ function Layout(props) {
 	return (
 		<Row justify={'center'} className={styles.main_content_wrapper}>
 			<Col
-				xs={24} sm={24} md={14} lg={14} xl={15}
+				xs={24} sm={24} md={14} lg={13} xl={15}
 				className={styles.main_content}
 			>
 				{props.left}
 			</Col>
 			<Col
-				xs={0} sm={0} md={8} lg={6} xl={5}
+				xs={0} sm={0} md={9} lg={7} xl={6}
 				className={styles.right_nav}
 			>
 				{props.right}
