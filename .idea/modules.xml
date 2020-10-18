@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../blog-cms/.idea/blog-cms.iml" filepath="$PROJECT_DIR$/../blog-cms/.idea/blog-cms.iml" />
       <module fileurl="file://$PROJECT_DIR$/../front-end/.idea/front-end.iml" filepath="$PROJECT_DIR$/../front-end/.idea/front-end.iml" />
       <module fileurl="file://$PROJECT_DIR$/../my-app/.idea/my-app.iml" filepath="$PROJECT_DIR$/../my-app/.idea/my-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/react-blog.iml" filepath="$PROJECT_DIR$/.idea/react-blog.iml" />
