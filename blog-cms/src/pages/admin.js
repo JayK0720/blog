@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons';
 const {Content, Footer, Sider} = Layout;
 function Admin({routes}) {
+	console.log('admin-props',routes);
 	return (
 		<Layout>
 			<Sider
@@ -29,7 +30,7 @@ function Admin({routes}) {
 					<div className="site-layout-background" style={{padding: 24, textAlign: 'center'}}>
 						<Switch>
 							{routes.map((route,index) => (
-								<Route path={route.path} key={'sub-'+index}><route.component/></Route>
+								<Route path={route.path} key={'sub-'+index}><route.component routes={route.routes}/></Route>
 							))}
 						</Switch>
 					</div>

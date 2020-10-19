@@ -4,7 +4,7 @@ import {Card,Input,Button,Spin,message} from 'antd';
 import {UserOutlined,KeyOutlined,WechatOutlined , QqOutlined,WeiboCircleOutlined } from '@ant-design/icons';
 
 function Login (props) {
-	console.log('login-props',props);
+	console.log('login-props:',props)
 	const [username,setUserName] = useState("");
 	const [password,setPassWord] = useState("");
 	const [isLogin,setIsLogin] = useState(false);
@@ -31,8 +31,9 @@ function Login (props) {
 		setPassWord(event.target.value.trim());
 	}
 	return (
-		<div className="login-wrapper">
-			<Spin spinning={isLogin}>
+		<React.Fragment>
+			<div className="login-wrapper">
+				<Spin spinning={isLogin}>
 				<Card title={'博客内容管理系统'} className={'login-card'}>
 					<div className="user-input input-wrapper">
 						<Input
@@ -74,8 +75,9 @@ function Login (props) {
 						>登陆</Button>
 				</Card>
 			</Spin>
-
-		</div>
+			</div>
+			<div className="home-bg"></div>
+		</React.Fragment>
 	)
 }
 
