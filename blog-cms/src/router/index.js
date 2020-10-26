@@ -1,6 +1,7 @@
 import Login from '../pages/login';
 import Admin from '../pages/admin';
 import AddArticle from '../components/add-article'
+import Preview from '../pages/preview'
 const routes = [
 	{
 		path:'/login',
@@ -12,7 +13,13 @@ const routes = [
 		routes:[
 			{
 				path:'/admin/add',
-				component:AddArticle
+				component:AddArticle,
+				routes:[
+					{
+						path:'/admin/add/preview',
+						component:Preview
+					}
+				]
 			}
 		]
 	}
