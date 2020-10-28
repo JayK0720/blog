@@ -1,13 +1,16 @@
 import React ,{useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import '../static/css/login.scss';
 import {Card,Input,Button,Spin,message} from 'antd';
 import {UserOutlined,KeyOutlined,WechatOutlined , QqOutlined,WeiboCircleOutlined } from '@ant-design/icons';
+import axios from '../common/js/api';
+import md5 from 'js-md5';
 
 function Login (props) {
-	console.log('login-props:',props)
 	const [username,setUserName] = useState("");
 	const [password,setPassWord] = useState("");
 	const [isLogin,setIsLogin] = useState(false);
+	const history = useHistory();
 	const handleLogin = () => {
 		if(!username) {
 			message.warning('用户名不能为空');
@@ -17,11 +20,18 @@ function Login (props) {
 			message.warning('密码不能为空');
 			return;
 		}
-		console.log('登陆');
-		setIsLogin(true);
-		setTimeout(() => {
-			setIsLogin(false);
-		},2000)
+		axios({
+			url:"/api/admin/login",
+			method:'post',
+			data:{
+				username,
+				password:md5(password)
+			}
+		}).then(() => {
+			history.push("/admin");
+		}).catch(() => {
+			message.warning("账号或密码错误");
+		})
 	}
 	const handleUserName = (event) => {
 		console.log(event);

@@ -9,12 +9,21 @@ const session = require("koa-session");
 Mongoose.connect();
 app.use(bodyParser());
 app.keys = ['react-blog'];
+
+app.use(async (ctx,next) => {
+	ctx.set("Access-Control-Allow-Origin","http://localhost:3000");
+	ctx.set("Access-Control-Allow-Methods",'GET,POST,PUT,DELETE');
+	ctx.set("Access-Control-Allow-Credentials",true);
+	ctx.set("Access-Control-Allow-Headers",'Content-Type');
+	await next();
+})
+
 const config = {
 	key:"koa.sess",
-	maxAge:1000*60*60*24*7,
+	maxAge:1000*60*60*24,
 	httpOnly:true,
 	signed:true,
-	secure:true,
+	overwrite:true,
 }
 app.use(session(config,app));
 

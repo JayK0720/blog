@@ -2,7 +2,20 @@ const admin = require('../model/admin');
 
 const login = async (ctx) => {
 	let {username,password} = ctx.request.body;
-
+	console.log('password',password);
+	const result = await admin.find_login({username,password});
+	if(result) {
+		ctx.session.username = username;
+		ctx.body = {
+			code:0,
+			message:"登陆成功"
+		}
+	}else{
+		ctx.body = {
+			code:-1,
+			message:'账号或密码错误'
+		}
+	}
 }
 
 const register = async (ctx) => {
@@ -26,13 +39,29 @@ const register = async (ctx) => {
 }
 
 const logout = async ctx => {
-	
+	ctx.session.username = "";
+	ctx.body = {
+		code:0,
+		message:"退出成功"
+	}
 }
 
-const find_password = async ctx => {
-
+const is_logged = async ctx => {
+	const username = ctx.session.username;
+	if(username) {
+		ctx.body = {
+			code:0,
+			message:"已经登陆过",
+			data:{username}
+		}
+	}else{
+		ctx.body = {
+			code:-1,
+			message:"未登陆"
+		}
+	}
 }
 
 module.exports = {
-	login,register,logout,find_password
+	login,register,logout,is_logged
 }

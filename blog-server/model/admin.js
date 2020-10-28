@@ -11,8 +11,13 @@ const adminSchema = mongoose.Schema({
 const AdminModel = mongoose.model('admin',adminSchema);
 AdminModel.createIndexes();
 
+
 const isRegister = (tel) => {
-	return AdminModel.find({tel});
+	return AdminModel.findOne({tel});
+}
+
+const find_login = ({username,password}) => {
+	return AdminModel.findOne({username,password})
 }
 
 const save = (data) => {
@@ -21,6 +26,6 @@ const save = (data) => {
 }
 
 module.exports = {
-	save,isRegister
+	save,isRegister,find_login
 }
 
