@@ -18,9 +18,8 @@
 }
 .login-card{
     margin:0 auto;
-    max-width:450px;
-    min-width:400px;
-    width:100%;
+    max-width:420px;
+    min-width:300px;
     border-radius:10px;
     &:hover{
         box-shadow:0 0 5px 1px rgba(7,17,27,.1);
@@ -43,8 +42,10 @@
         margin-bottom:0;
     }
     .cannot-login{
+        display:flex;
+        justify-content:space-between;
+        height:40px;
         line-height:40px;
-        text-align:right;
         color:#8590a6;
         cursor:pointer;
     }
@@ -58,8 +59,8 @@
         border-top:1px solid #f1f1f1;
         text-align:center;
         .social-text{
-            font-size:18px;
-            line-height:70px;
+            font-size:16px;
+            line-height:60px;
         }
         .account-login-button{
             outline:none;

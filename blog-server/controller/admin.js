@@ -1,8 +1,8 @@
 const admin = require('../model/admin');
-
+const md5 = require("js-md5");
 const login = async (ctx) => {
 	let {username,password} = ctx.request.body;
-	console.log('password',password);
+	password = md5(password);
 	const result = await admin.find_login({username,password});
 	if(result) {
 		ctx.session.username = username;
@@ -17,19 +17,18 @@ const login = async (ctx) => {
 		}
 	}
 }
-
 const register = async (ctx) => {
 	let {username,password,tel} = ctx.request.body;
 	let isExist = await admin.isRegister(tel);
-	if(isExist.length) {
+	if(isExist) {
 		ctx.body = {
 			message:"手机号已注册",
 			code:-1,
 		}
 		return;
 	}
+	password = md5(password);
 	const result = await admin.save({username,password,tel});
-	console.log("result:",result);
 	if(result) {
 		ctx.body = {
 			message:"注册成功",

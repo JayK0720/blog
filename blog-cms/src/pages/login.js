@@ -6,11 +6,14 @@ import {UserOutlined,KeyOutlined,WechatOutlined , QqOutlined,WeiboCircleOutlined
 import axios from '../common/js/api';
 import md5 from 'js-md5';
 
-function Login (props) {
+function Login () {
 	const [username,setUserName] = useState("");
 	const [password,setPassWord] = useState("");
 	const [isLogin,setIsLogin] = useState(false);
 	const history = useHistory();
+	const handleRegister = () => {
+		history.push("/register");
+	}
 	const handleLogin = () => {
 		if(!username) {
 			message.warning('用户名不能为空');
@@ -28,6 +31,7 @@ function Login (props) {
 				password:md5(password)
 			}
 		}).then(() => {
+			setIsLogin(false);
 			history.push("/admin");
 		}).catch(() => {
 			message.warning("账号或密码错误");
@@ -47,20 +51,21 @@ function Login (props) {
 				<Card title={'博客内容管理系统'} className={'login-card'}>
 					<div className="user-input input-wrapper">
 						<Input
-							prefix={<UserOutlined/>} size="large" placeholder={'用户名'}
+							prefix={<UserOutlined/>} placeholder={'用户名'}
 							value={username}
 							onChange={handleUserName}
 						/>
 					</div>
 					<div className="password-input input-wrapper">
 						<Input.Password
-							prefix={<KeyOutlined/>} size={'large'} placeholder={'密码'}
+							prefix={<KeyOutlined/>} placeholder={'密码'}
 							value={password}
 							onChange={handlePassWord}
 						/>
 					</div>
 					<div className="cannot-login">
-						<span>忘记密码?</span>
+						<span className='register' onClick={handleRegister}>免费注册</span>
+						<span className='forget-password'>忘记密码?</span>
 					</div>
 					<div className="social-login">
 						<div className='social-text'>社交账号登陆</div>
@@ -80,7 +85,7 @@ function Login (props) {
 						</div>
 					</div>
 					<Button
-						type={'primary'} size="large" className='login-button'
+						type={'primary'} className='login-button'
 						onClick={handleLogin}
 						>登陆</Button>
 				</Card>

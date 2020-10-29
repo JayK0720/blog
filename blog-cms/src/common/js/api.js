@@ -9,7 +9,7 @@ instance.interceptors.response.use((response) => {
 	if(data.code === 0) {
 		return data;
 	}else{
-		return Promise.reject(data);
+		return Promise.reject(data.message);
 	}
 });
 
