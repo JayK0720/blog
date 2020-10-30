@@ -5,6 +5,7 @@ import {Card,Input,Button,Spin,message} from 'antd';
 import {UserOutlined,KeyOutlined,WechatOutlined , QqOutlined,WeiboCircleOutlined } from '@ant-design/icons';
 import axios from '../common/js/api';
 import md5 from 'js-md5';
+import url from '../common/js/url'
 
 function Login () {
 	const [username,setUserName] = useState("");
@@ -23,8 +24,9 @@ function Login () {
 			message.warning('密码不能为空');
 			return;
 		}
+		setIsLogin(true);
 		axios({
-			url:"/api/admin/login",
+			url:url.register,
 			method:'post',
 			data:{
 				username,
@@ -34,15 +36,17 @@ function Login () {
 			setIsLogin(false);
 			history.push("/admin");
 		}).catch(() => {
+			setIsLogin(false);
 			message.warning("账号或密码错误");
 		})
 	}
 	const handleUserName = (event) => {
-		console.log(event);
-		setUserName(event.target.value.trim());
+		let username = event.target.value.trim();
+		setUserName(username);
 	}
 	const handlePassWord = (event) => {
-		setPassWord(event.target.value.trim());
+		let password = event.target.value.trim();
+		setPassWord(password);
 	}
 	return (
 		<React.Fragment>

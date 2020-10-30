@@ -8,5 +8,6 @@
     <orderEntry type="module" module-name="front-end" />
     <orderEntry type="module" module-name="server" />
     <orderEntry type="module" module-name="blog-cms" />
+    <orderEntry type="module" module-name="server" />
   </component>
 </module>

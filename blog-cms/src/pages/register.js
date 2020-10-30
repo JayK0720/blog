@@ -25,15 +25,15 @@ function Register() {
 		setNumber(number);
 	}
 	const handleRegister = () => {
-		if(!username.trim()){
+		if(!username){
 			message.warning("用户名不能为空");
 			return;
 		}
-		if(!password.trim()){
+		if(!password){
 			message.warning("密码不能为空");
 			return;
 		}
-		if(!number.trim()){
+		if(!number){
 			message.warning("手机号不能为空");
 			return;
 		}
@@ -80,5 +80,4 @@ function Register() {
 		</div>
 	)
 }
-
 export default Register;

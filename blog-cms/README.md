@@ -23,7 +23,11 @@ function HighLight (props) {
 
     mongoose  find 和 findOne的区别
     
-    js-md5 加密方式
-    
+    js-md5 sha1 加密方式
     koa-session 数据持久化
-        
+    发送短信验证码
+    微信/QQ等扫码验证      
+    
+    react-router-dom 编程式导航  
+    局部作用域css
+    发送验证码后 倒计时

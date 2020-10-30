@@ -3,6 +3,7 @@ import Admin from '../pages/admin';
 import AddArticle from '../components/add-article'
 import Preview from '../pages/preview'
 import Register from '../pages/register'
+import FindPassword from '../pages/find-password';
 const routes = [
 	{
 		path:'/login',
@@ -11,6 +12,10 @@ const routes = [
 	{
 		path:"/register",
 		component:Register
+	},
+	{
+		path:"/find-password",
+		component:FindPassword
 	},
 	{
 		path:'/admin',

@@ -8,9 +8,10 @@ instance.interceptors.response.use((response) => {
 	const {data } = response;
 	if(data.code === 0) {
 		return data;
-	}else{
-		return Promise.reject(data.message);
 	}
+	return Promise.reject(data.message)
+},error => {
+	return Promise.reject(error);
 });
 
 export default instance;
