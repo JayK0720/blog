@@ -18,17 +18,17 @@ const login = async (ctx) => {
 	}
 }
 const register = async (ctx) => {
-	let {username,password,tel} = ctx.request.body;
-	let isExist = await admin.isRegister(tel);
+	let {username,password,email} = ctx.request.body;
+	let isExist = await admin.isRegister(email);
 	if(isExist) {
 		ctx.body = {
-			message:"手机号已注册",
+			message:"邮箱已注册",
 			code:-1,
 		}
 		return;
 	}
 	password = md5(password);
-	const result = await admin.save({username,password,tel});
+	const result = await admin.save({username,password,email});
 	if(result) {
 		ctx.body = {
 			message:"注册成功",

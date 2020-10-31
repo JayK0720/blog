@@ -1,16 +1,20 @@
-import React ,{useState} from 'react';
+import React ,{useState, useRef} from 'react';
 import '../static/css/register.scss';
 import axios from '../common/js/api';
 import md5 from 'js-md5';
 import {Card,Input,Button,Spin,message} from 'antd';
 import {useHistory} from 'react-router-dom';
-import {UserOutlined,ShoppingOutlined,PhoneOutlined} from '@ant-design/icons';
+import {UserOutlined,ShoppingOutlined,MailOutlined} from '@ant-design/icons';
 
 function Register() {
 	const [username,setUserName] = useState("");
 	const [password,setPassWord] = useState("");
-	const [number,setNumber] = useState("");
+	const [email,setEmail] = useState("");
 	const [spinning,setSpinning] = useState(false);
+	const [verify,setVerify] = useState("");
+	const [text,setText] = useState("获取验证码");
+	const [isSend,setIsSend] = useState(false);
+	const timer = useRef();
 	const history = useHistory();
 	const handleUserName = (event) => {
 		let username = event.target.value.trim();
@@ -20,9 +24,29 @@ function Register() {
 		let password = event.target.value.trim();
 		setPassWord(password);
 	}
-	const handleNumber = (event) => {
-		let number = event.target.value.trim();
-		setNumber(number);
+	const handleEmail = (event) => {
+		let email = event.target.value.trim();
+		setEmail(email);
+	}
+	const handleVerify = event => {
+		let verify = event.target.value.trim();
+		setVerify(verify);
+	}
+	const handleGetVerify = () => {
+		if(!email) {
+			message.warning("请输入合法邮箱");
+			return;
+		}
+		let i = 60,value;
+		setIsSend(true);
+		timer.current = setInterval(() => {
+			i--;
+			value = `${i}s 已发送`;
+			setText(value);
+			if(i <= 0) {
+				setText("重新获取");
+			}
+		},1000);
 	}
 	const handleRegister = () => {
 		if(!username){
@@ -33,7 +57,7 @@ function Register() {
 			message.warning("密码不能为空");
 			return;
 		}
-		if(!number){
+		if(!email){
 			message.warning("手机号不能为空");
 			return;
 		}
@@ -41,7 +65,7 @@ function Register() {
 		axios({
 			url:"/api/admin/register",
 			method:"post",
-			data:{username,password:md5(password),tel:number}
+			data:{username,password:md5(password),email,verify}
 		}).then(() => {
 			setSpinning(false);
 			message.success("注册成功");
@@ -66,10 +90,14 @@ function Register() {
 						prefix={<ShoppingOutlined />}
 					/>
 					<Input
-						placeholder="手机号" onChange={handleNumber}
-						className={'number-input register-input'}
-						prefix={<PhoneOutlined />}
+						placeholder="邮箱" onChange={handleEmail}
+						className='email-input register-input'
+						prefix={<MailOutlined />}
 					/>
+					<div className='verify-wrapper'>
+						<Input className='verify-text' placeholder='验证码' onChange={handleVerify}/>
+						<Button type={'default'} onClick={handleGetVerify} disabled={isSend}>{text}</Button>
+					</div>
 					<div className="has-account">
 						<span>已有账户?去登陆</span>
 					</div>

@@ -29,11 +29,10 @@
         color:#888;
         user-select:none;
     }
-    .sign-bg{
-        position:fixed;
-        left:0;right:0;top:0;bottom:0;
-        background:url("../imgs/sign_bg.png") no-repeat center/cover;
-        overflow:hidden;
-        z-index:-10;
+    .verify-wrapper{
+        display:flex;
+        .verify-text{
+            margin-right:10px;
+        }
     }
 }

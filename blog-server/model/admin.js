@@ -4,7 +4,7 @@ mongoose.set("useCreateIndex",true);
 const adminSchema = mongoose.Schema({
 	username: {type:String, required:true, index: {unique: true}},
 	password: {type:String, required:true},
-	tel: {type: Number, required:true, index: {unique: true}},
+	email: {type: String, required:true, index: {unique: true}},
 	date: {type: Date, default: Date.now }
 });
 
@@ -12,8 +12,8 @@ const AdminModel = mongoose.model('admin',adminSchema);
 AdminModel.createIndexes();
 
 
-const isRegister = (tel) => {
-	return AdminModel.findOne({tel});
+const isRegister = (email) => {
+	return AdminModel.findOne({email});
 }
 
 const find_login = ({username,password}) => {
