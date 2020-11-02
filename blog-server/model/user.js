@@ -1,28 +1,28 @@
 const mongoose = require("mongoose");
 mongoose.set("useCreateIndex",true);
 
-const adminSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
 	username: {type:String, required:true, index: {unique: true}},
 	password: {type:String, required:true},
 	email: {type: String, required:true, index: {unique: true}},
 	date: {type: Date, default: Date.now }
 });
 
-const AdminModel = mongoose.model('admin',adminSchema);
-AdminModel.createIndexes();
+const userModel = mongoose.model('user',userSchema);
+userModel.createIndexes();
 
-
+// 邮箱是唯一的,判断是否注册过
 const isRegister = (email) => {
-	return AdminModel.findOne({email});
+	return userModel.findOne({email});
 }
-
+// 是否登陆过
 const find_login = ({username,password}) => {
-	return AdminModel.findOne({username,password})
+	return userModel.findOne({username,password})
 }
-
+// 保存登陆数据
 const save = (data) => {
-	const admin = new AdminModel(data);
-	return admin.save();
+	const user = new userModel(data);
+	return user.save();
 }
 
 module.exports = {

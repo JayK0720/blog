@@ -17,7 +17,8 @@
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^9.4.0",
     "koa-session": "^6.1.0",
-    "mongoose": "^5.10.10"
+    "mongoose": "^5.10.10",
+    "nodemailer": "^6.4.14"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"

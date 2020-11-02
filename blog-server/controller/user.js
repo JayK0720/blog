@@ -1,5 +1,7 @@
-const admin = require('../model/admin');
+const admin = require('../model/user');
 const md5 = require("js-md5");
+const {Email} = require('../util/config');
+//登陆接口
 const login = async (ctx) => {
 	let {username,password} = ctx.request.body;
 	password = md5(password);
@@ -17,6 +19,36 @@ const login = async (ctx) => {
 		}
 	}
 }
+// 验证码接口
+const verify = async (ctx) => {
+	const {email} = ctx.request.body;
+	let verify = Email.verify;
+	var mailOptions = {
+		from: '2165767230@qq.com',
+		to: email,
+		subject: "验证码",
+		text: '您好,您注册账户的验证码为：' + verify,
+	}
+	let info = await Email.transporter.sendMail(mailOptions);
+	if(info) {
+		ctx.body = {
+			message:"发送成功",
+			code:0,
+			data:{
+				verify
+			}
+		}
+		ctx.session.email = email;
+		ctx.session.verify = verify;
+	}else{
+		ctx.body = {
+			message:"发送失败",
+			code:-1,
+			data:{}
+		}
+	}
+}
+// 注册接口
 const register = async (ctx) => {
 	let {username,password,email} = ctx.request.body;
 	let isExist = await admin.isRegister(email);
@@ -36,7 +68,7 @@ const register = async (ctx) => {
 		}
 	}
 }
-
+// 退出接口
 const logout = async ctx => {
 	ctx.session.username = "";
 	ctx.body = {
@@ -44,7 +76,7 @@ const logout = async ctx => {
 		message:"退出成功"
 	}
 }
-
+// 判断登陆是否过期
 const is_logged = async ctx => {
 	const username = ctx.session.username;
 	if(username) {
@@ -62,5 +94,5 @@ const is_logged = async ctx => {
 }
 
 module.exports = {
-	login,register,logout,is_logged
+	login,register,logout,is_logged,verify
 }

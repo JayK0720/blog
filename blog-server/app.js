@@ -1,8 +1,8 @@
 const Koa = require("koa");
 const router = require("koa-router")();
 const app = new Koa();
-const Mongoose = require('./util/config.js');
-const adminRouter = require('./router/admin');
+const {Mongoose} = require('./util/config.js');
+const adminRouter = require('./router/user');
 const bodyParser = require('koa-bodyparser');
 const session = require("koa-session");
 
@@ -38,7 +38,7 @@ router.get('/news',async ctx => {
 app.use(router.routes()).use(router.allowedMethods());
 app.use(adminRouter.routes()).use(adminRouter.allowedMethods());
 
-app.listen(5000,() => {
-	console.log('app starting at port 5000');
+app.listen(5001,() => {
+	console.log('app starting at port 5001');
 })
 

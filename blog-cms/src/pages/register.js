@@ -5,6 +5,7 @@ import md5 from 'js-md5';
 import {Card,Input,Button,Spin,message} from 'antd';
 import {useHistory} from 'react-router-dom';
 import {UserOutlined,ShoppingOutlined,MailOutlined} from '@ant-design/icons';
+let reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 
 function Register() {
 	const [username,setUserName] = useState("");
@@ -34,6 +35,10 @@ function Register() {
 	}
 	const handleGetVerify = () => {
 		if(!email) {
+			message.warning("邮箱不能为空");
+			return;
+		}
+		if(!reg.test(email)){
 			message.warning("请输入合法邮箱");
 			return;
 		}
@@ -58,7 +63,11 @@ function Register() {
 			return;
 		}
 		if(!email){
-			message.warning("手机号不能为空");
+			message.warning("邮箱不能为空");
+			return;
+		}
+		if(!verify){
+			message.warning("验证码不能为空");
 			return;
 		}
 		setSpinning(true);
