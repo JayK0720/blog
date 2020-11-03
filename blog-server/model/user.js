@@ -15,6 +15,9 @@ userModel.createIndexes();
 const isRegister = (email) => {
 	return userModel.findOne({email});
 }
+const find_user = (username) => {
+	return userModel.findOne({username});
+}
 // 是否登陆过
 const find_login = ({username,password}) => {
 	return userModel.findOne({username,password})
@@ -26,6 +29,6 @@ const save = (data) => {
 }
 
 module.exports = {
-	save,isRegister,find_login
+	save,isRegister,find_login,find_user
 }
 

@@ -38,7 +38,7 @@ router.get('/news',async ctx => {
 app.use(router.routes()).use(router.allowedMethods());
 app.use(adminRouter.routes()).use(adminRouter.allowedMethods());
 
-app.listen(5001,() => {
+app.listen(5000,() => {
 	console.log('app starting at port 5001');
 })
 

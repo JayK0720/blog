@@ -1,16 +1,27 @@
-const admin = require('../model/user');
+const user = require('../model/user');
 const md5 = require("js-md5");
 const {Email} = require('../util/config');
 //登陆接口
 const login = async (ctx) => {
 	let {username,password} = ctx.request.body;
+	const info = await user.find_user(username);
+	if(!info) {
+		ctx.body = {
+			message:"用户名不存在,请先注册",
+			code:-1
+		}
+		return;
+	}
 	password = md5(password);
-	const result = await admin.find_login({username,password});
+	const result = await user.find_login({username,password});
 	if(result) {
 		ctx.session.username = username;
 		ctx.body = {
 			code:0,
-			message:"登陆成功"
+			message:"登陆成功",
+			data:{
+				username
+			}
 		}
 	}else{
 		ctx.body = {
@@ -19,7 +30,7 @@ const login = async (ctx) => {
 		}
 	}
 }
-// 验证码接口
+// 获取验证码接口
 const verify = async (ctx) => {
 	const {email} = ctx.request.body;
 	let verify = Email.verify;
@@ -50,17 +61,26 @@ const verify = async (ctx) => {
 }
 // 注册接口
 const register = async (ctx) => {
-	let {username,password,email} = ctx.request.body;
-	let isExist = await admin.isRegister(email);
-	if(isExist) {
+	let {username,password,email,verify} = ctx.request.body;
+	// 注册时需判断 获取的验证码的邮箱和提交注册时的邮箱 是否一致
+	console.log('email:',email,'verify:',verify);
+	if((email !== ctx.session.email) || (verify !== ctx.session.verify)){
 		ctx.body = {
-			message:"邮箱已注册",
+			message:"邮箱或验证码错误",
 			code:-1,
 		}
 		return;
 	}
+	let isExist = await user.isRegister(email);
+	if(isExist) {
+		ctx.body = {
+			message:"邮箱已注册",
+			code:-2,
+		}
+		return;
+	}
 	password = md5(password);
-	const result = await admin.save({username,password,email});
+	const result = await user.save({username,password,email});
 	if(result) {
 		ctx.body = {
 			message:"注册成功",

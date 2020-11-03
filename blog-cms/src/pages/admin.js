@@ -1,13 +1,29 @@
-import React from 'react';
+import React ,{useEffect} from 'react';
 import {Layout, Menu} from 'antd';
-import {Route,Switch,Link} from 'react-router-dom';
+import {Route,Switch,Link,useHistory} from 'react-router-dom';
 import '../static/css/admin.scss';
-import {
-	MenuOutlined, DesktopOutlined , FileAddOutlined  ,
-} from '@ant-design/icons';
+import {MenuOutlined, DesktopOutlined , FileAddOutlined } from '@ant-design/icons';
+import axios from '../common/js/api';
+import url from '../common/js/url'
+import {setUser} from '../store/actions';
+import {connect} from 'react-redux';
+
 const {Content, Footer, Sider} = Layout;
-function Admin({routes}) {
-	console.log('admin-props',routes);
+
+let Admin =  ({routes,setUser,username}) => {
+	const history = useHistory();
+	useEffect(() => {
+		axios({
+			url:url.is_logged,
+			method:"post"
+		}).then(res => {
+			let username = res.data.username;
+			setUser(username);
+		})
+			.catch(() => {
+				history.push("/login");
+			})
+	},[setUser,history]);
 	return (
 		<Layout>
 			<Sider
@@ -35,10 +51,17 @@ function Admin({routes}) {
 						</Switch>
 					</div>
 				</Content>
-				<Footer style={{textAlign: 'center'}}>Ant Design ©2018 Created by Ant UED</Footer>
+				<Footer style={{textAlign: 'center'}}>
+					<span className="username">Hello,Welcome Back  {username} !</span>
+				</Footer>
 			</Layout>
 		</Layout>
 	)
 }
+const mapStateToProps = state => {
+	return {username:state.user}
+}
+const mapDispatchToProps = {setUser}
+Admin = connect(mapStateToProps,mapDispatchToProps)(Admin);
 
 export default Admin;

@@ -26,7 +26,7 @@ function Login () {
 		}
 		setIsLogin(true);
 		axios({
-			url:url.register,
+			url:url.login,
 			method:'post',
 			data:{
 				username,
@@ -35,9 +35,9 @@ function Login () {
 		}).then(() => {
 			setIsLogin(false);
 			history.push("/admin");
-		}).catch(() => {
+		}).catch((msg) => {
 			setIsLogin(false);
-			message.warning("账号或密码错误");
+			message.warning(msg);
 		})
 	}
 	const handleUserName = (event) => {
