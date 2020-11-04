@@ -48,6 +48,9 @@ function Login () {
 		let password = event.target.value.trim();
 		setPassWord(password);
 	}
+	const handleForgetPassword = () => {
+		history.push("/find-password");
+	}
 	return (
 		<React.Fragment>
 			<div className="login-wrapper">
@@ -69,7 +72,7 @@ function Login () {
 					</div>
 					<div className="cannot-login">
 						<span className='register' onClick={handleRegister}>免费注册</span>
-						<span className='forget-password'>忘记密码?</span>
+						<span className='forget-password' onClick={handleForgetPassword}>忘记密码?</span>
 					</div>
 					<div className="social-login">
 						<div className='social-text'>社交账号登陆</div>

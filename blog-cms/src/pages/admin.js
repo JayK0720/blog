@@ -8,9 +8,9 @@ import url from '../common/js/url'
 import {setUser} from '../store/actions';
 import {connect} from 'react-redux';
 
-const {Content, Footer, Sider} = Layout;
+const {Content, Sider} = Layout;
 
-let Admin =  ({routes,setUser,username}) => {
+let Admin =  ({routes,setUser}) => {
 	const history = useHistory();
 	useEffect(() => {
 		axios({
@@ -51,9 +51,6 @@ let Admin =  ({routes,setUser,username}) => {
 						</Switch>
 					</div>
 				</Content>
-				<Footer style={{textAlign: 'center'}}>
-					<span className="username">Hello,Welcome Back  {username} !</span>
-				</Footer>
 			</Layout>
 		</Layout>
 	)

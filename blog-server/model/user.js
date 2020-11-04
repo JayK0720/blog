@@ -27,8 +27,11 @@ const save = (data) => {
 	const user = new userModel(data);
 	return user.save();
 }
-
+// 修改密码
+const update_password = (email,password) => {
+	return userModel.updateOne({email},{$set:{password}});
+}
 module.exports = {
-	save,isRegister,find_login,find_user
+	save,isRegister,find_login,find_user,update_password
 }
 

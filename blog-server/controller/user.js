@@ -112,7 +112,26 @@ const is_logged = async ctx => {
 		}
 	}
 }
+// 修改密码
+const find_password = async ctx => {
+	let {email,verify,password} = ctx.request.body;
+	if((email != ctx.session.email) || (verify != ctx.session.verify)){
+		ctx.body = {
+			code:-1,
+			message:"邮箱或验证码错误"
+		}
+		return;
+	}
+	password = md5(password);
+	const result = await user.update_password(email,password);
+	if(result) {
+		ctx.body = {
+			message:"密码修改成功",
+			code:0
+		}
+	}
+}
 
 module.exports = {
-	login,register,logout,is_logged,verify
+	login,register,logout,is_logged,verify,find_password
 }

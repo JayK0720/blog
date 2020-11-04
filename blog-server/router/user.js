@@ -6,5 +6,6 @@ router.post("/register",controller.register);
 router.post("/logout",controller.logout);
 router.post("/is_logged",controller.is_logged);
 router.post('/verify',controller.verify);
+router.post("/find_password",controller.find_password);
 
 module.exports = router;

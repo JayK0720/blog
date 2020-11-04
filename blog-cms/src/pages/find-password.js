@@ -2,6 +2,11 @@ import React,{useState,useRef} from 'react'
 import {Spin,Card,Button,Input,message} from 'antd';
 import '../static/css/find-password.scss';
 import {LockOutlined,MailOutlined } from '@ant-design/icons';
+import axios from '../common/js/api';
+import url from '../common/js/url';
+import {useHistory} from 'react-router-dom';
+import md5 from 'js-md5';
+let reg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 
 function FindPassword(){
 	const [email,setEmail] = useState("");
@@ -11,6 +16,7 @@ function FindPassword(){
 	const [spinning,setSpinning] = useState(false);
 	const [text,setText] = useState("获取验证码");
 	const [isSend,setIsSend] = useState(false);
+	const history = useHistory();
 	const timer = useRef();
 	const handleEmail = (event) => {
 		let email = event.target.value.trim();
@@ -30,18 +36,29 @@ function FindPassword(){
 	}
 	// 点击发送验证码,text 变为倒计时形式,
 	const handleGetVerify = () => {
-		let i = 60;
-		let value;
-		setIsSend(true);
-		timer.current = setInterval(() => {
-			i--;
-			value = `${i}s 已发送`;
-			if(i <= 0) {
-				value = '重新获取';
-				setIsSend(false);
-			}
-			setText(value);
-		},1000);
+		if(!reg.test(email)){
+			message.warning("请输入合法邮箱");
+			return;
+		}
+		axios({
+			url:url.verify,
+			method:"post",
+			data:{email}
+		}).then((res) => {
+				console.log(res);
+				let i = 60;
+				let value;
+				setIsSend(true);
+				timer.current = setInterval(() => {
+					i--;
+					value = `${i}s 已发送`;
+					if(i <= 0) {
+						value = '重新获取';
+						setIsSend(false);
+					}
+					setText(value);
+				},1000);
+			})
 	}
 	const handleConfirm = () => {
 		if(!email){
@@ -61,9 +78,24 @@ function FindPassword(){
 			return;
 		}
 		setSpinning(true);
-		setTimeout(() => {
+		axios({
+			url:url.find_password,
+			method:"post",
+			data:{
+				email,verify,password:md5(newpassword)
+			}
+		}).then(res => {
+			console.log('修改密码:',res);
 			setSpinning(false);
-		},1000);
+			history.push("/login");
+			if(timer.current){
+				clearInterval(timer.current);
+			}
+		})
+			.catch((msg) => {
+				message.warning(msg);
+				setSpinning(false);
+			})
 	}
 	return (
 		<div className='find-password-wrapper'>

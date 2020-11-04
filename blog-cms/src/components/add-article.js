@@ -31,21 +31,20 @@ function AddArticle ({routes}) {
 		console.log('发布');
 	}
 	const handlePreview = () => {
-		console.log('点击了')
 		history.push('/admin/add/preview')
 	}
 	return (
 		<React.Fragment>
-			<Row className={'article-wrapper'}>
-				<Col span={5} className={'article-menu'}>
+			<Row className={'article-wrapper'} type='flex'>
+				<Col span={4} className={'article-menu'}>
 					<div className="menu-title">文章目录</div>
 					<ul className={'menu-list'}>
 						<li className={'menu-item'}>react</li>
 						<li className={'menu-item'}>redux</li>
-						<li className={'menu-item'}>react-router-dom</li>
+						<li className={'menu-item'}>react-router-dom11111111111</li>
 					</ul>
 				</Col>
-				<Col span={19} className={'article'}>
+				<Col span={20} className={'article'}>
 					<header className={'left-header'}>
 						<Input placeholder={'请输入博客标题'} onChange={handleEditTitle} value={title}/>
 						<Select value={type} className={'select-type'} onChange={handleSelectType}>
@@ -58,11 +57,7 @@ function AddArticle ({routes}) {
 						>发布</Button>
 					</header>
 					<ToolBar isPreview={false} onClick={handlePreview}/>
-					<Input.TextArea
-						value={article}
-						placeholder={'博客正文'}
-						onChange={handleEdit}
-					></Input.TextArea>
+					<Input.TextArea value={article} placeholder={'博客正文'} onChange={handleEdit}></Input.TextArea>
 				</Col>
 			</Row>
 			<Switch>

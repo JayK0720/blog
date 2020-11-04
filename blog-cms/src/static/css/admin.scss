@@ -3,34 +3,39 @@
     padding:0;
     height:100%;
 }
-//添加文章页面
-.ant-layout-content{
-    margin:10px 10px 0 10px;
-    .site-layout-background{
-        padding:10px;
-    }
+.site-layout-background{
+    padding:0!important;
 }
-.ant-layout-footer{
-    padding:10px 50px;
+.ant-layout-content{
+    margin:0!important;
+    padding-top:10px;
+    flex:1;
 }
 .article-wrapper{
     height:100%;
     .article-menu{
         height:100%;
         overflow:auto;
+        border-right:1px solid #e8e8e8;
+        &::-webkit-scrollbar{
+           display:none;
+        }
     }
     .menu-title{
-        line-height:40px;
-        font-size:16px;
+        line-height:36px;
+        font-size:14px;
         border-bottom:1px solid #f1f1f1;
         color:#1890ff;
     }
     .menu-item{
-        padding:5px;
+        padding:3px 0 3px 10px;
         border-bottom:1px solid #f9f9f9;
         cursor:pointer;
         line-height:28px;
         text-align:left;
+        white-space:nowrap;
+        text-overflow:ellipsis;
+        overflow:hidden;
     }
     .article{
         display:flex;
@@ -48,12 +53,6 @@
         display:flex;
         justify-content:space-between;
     }
-    .publish-button,{
-        margin-left:10px;
-    }
-    .select-type{
-        margin-left:40px;
-    }
     .preview{
        max-height:100%;
        background-color:#fcfbf1;
@@ -64,8 +63,5 @@
 }
 #root,.App,.ant-layout{
     height:100%;
-}
-.ant-layout-content{
-    flex:1;
 }
 
